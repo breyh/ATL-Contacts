@@ -1,1 +1,135 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~animate.css/animate.min.css';
+h1, h2, h3{
+  font-weight:100;
+}
+
+body {
+    background-color: #f2f2f2;
+}
+
+.content {
+    padding: 2rem;
+}
+
+.color-primary {
+    color: #211747;
+}
+
+.box {
+    background-color: #ffff;
+    border: 2px solid #ffff;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    transition: 0.4s;
+}
+
+.box h3 {
+    color: #211747;
+    font-size: 1.4rem;
+    font-weight: 100;
+}
+
+.box h3 span {
+    color: rgb(116, 116, 116);
+    font-size: .9rem;
+}
+
+.box .box-check {
+    top: 2rem;
+    right: 1rem;
+}
+
+.box:hover {
+    border: 2px solid #211747;
+    cursor: pointer;
+}
+
+.aside {
+    background-color: #ffff;
+    border-radius: 10px;
+}
+
+.checkbox {
+    padding: 10px;
+}
+
+.checkbox:checked {
+    border: 1px solid #41B883 !important;
+    background-color: #41B883 !important;
+}
+
+.btn-add {
+    background-color: #211747;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.3rem;
+}
+
+.btn-delete {
+    background-color: white;
+    color: rgb(133, 133, 133);
+    border: 1px solid rgb(212, 212, 212);
+    padding: 0.5rem 1.3rem;
+}
+
+.phones {
+    transition: 0.4s;
+    font-weight: 100;
+}
+
+.phones:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.aside-title {
+    font-weight: 100;
+}
+
+.aside-title i {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.animate__fadeIn {
+    --animate-duration: 2s !important;
+}
+
+.card-top-info .icon-box {
+    left: 1rem;
+    top: -1rem;
+    background-color: #211747;
+    width: 60px;
+    height: 60px;
+    padding: 10px
+}
+
+.card-title {
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.card-top-info .icon-box i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.card-quantity {
+    line-height: 1.4em;
+    color: #3c4858;
+    font-weight: 100;
+}
+
+.border_active {
+    border: 2px solid #211747;
+}
+
+.sticky-top {
+    top: 0.5rem;
+}
+
+.checkboxAll {
+    right: 1.4rem;
+    bottom: 0.4rem;
+}
