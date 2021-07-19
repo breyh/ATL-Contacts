@@ -28,7 +28,7 @@ export class ContactService {
       condition = this.Contacts.some(Contact => Contact.id == randomNumber);
     }
     this.Contacts.push({ id: randomNumber, name: Contact, creation_date: this.getNow(), selected: false })
-    localStorage.setItem("Contacts", JSON.stringify(this.Contacts));
+    localStorage.setItem("Contacts", JSON.stringify(this.Contacts))
   }
   public Delete(id: number) {
     this.Contacts = this.Contacts.filter(c => c.id != id);

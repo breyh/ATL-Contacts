@@ -1,66 +1,82 @@
-<div class="content animate__animated animate__fadeIn">
-    <div class="row">
-        <div class="card-top-info m-3 px-3 py-2 col-md-3 bg-white position-relative">
-            <div class="text-end">
-                <span class="card-title">contacts</span>
-                <h3 class="card-quantity">0</h3>
-            </div>
-            <div class="position-absolute icon-box text-center">
-                <i class="fas fa-user"></i>
-            </div>
-        </div>
-        <div class="card-top-info m-3 px-3 py-2 col-md-3 bg-white position-relative">
-            <div class="text-end">
-                <span class="card-title">phones</span>
-                <h3 class="card-quantity">0</h3>
-            </div>
-            <div class="position-absolute icon-box text-center">
-                <i class="fas fa-map-marker-alt"></i>
-            </div>
-        </div>
-    </div>
-    <h2 class="font-size-8 mb-4 mt-4 text-muted">contacts maintenance</h2>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="col-12">
-                <div class="mb-3">
-                    <input placeholder="New contact" type="text" class="form-control px-4 py-2">
-                    <p class="text-danger text-end">
-                        error</p>
+<div class="container">
+    <div class="content animate__animated animate__fadeIn">
+        <div class="row">
+            <div class="card-top-info m-3 px-3 py-2 col-md-3 bg-white position-relative">
+                <div class="text-end">
+                    <span class="card-title">Contacts</span>
+                    <h3 class="card-quantity">{{contacts.length}}</h3>
+                </div>
+                <div class="position-absolute icon-box text-center">
+                    <i class="fas fa-user"></i>
                 </div>
             </div>
-            <div class="form-check box-check position-relative py-3">
-                <span class="text-muted"><small>Showing 0 contacts</small></span>
-                <input class="form-check-input checkbox checkboxAll position-absolute" type="checkbox">
-            </div>
-            <div class="col-12 box position-relative mb-3 animate__animated animate__fadeIn">
-                <h3>nombre actual</h3>
-                <span class="text-muted"><small>hoy</small></span>
-                <div class="form-check position-absolute box-check">
-                    <input class="form-check-input checkbox" type="checkbox">
+            <div class="card-top-info m-3 px-3 py-2 col-md-3 bg-white position-relative">
+                <div class="text-end">
+                    <span class="card-title">Phones</span>
+                    <h3 class="card-quantity">{{phones.length}}</h3>
                 </div>
+                <div class="position-absolute icon-box text-center">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <form class="col-6">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        #searchContactid (keyup)="searchContact(searchContactid.value)">
+                </form>
             </div>
-            <button class="btn btn-delete mt-3 float-end animate__animated animate__fadeIn"><i class="fas fa-trash"></i>
-                Remove selected 0</button>
-        </div>
-        <div class="col-md-4">
-            <div class="aside col-12 sticky-top animate__animated animate__fadeIn">
-                <div class="p-4 pb-2">
-                    <h4 class="aside-title">nombre <i class="fas fa-pen color-primary"></i></h4>
-                    <button class="btn btn-add mt-3"><i class="fas fa-plus"></i> New phone</button>
-                    <button class="btn btn-delete mt-3 mx-2"><i class="fas fa-trash"></i> Remove contact</button>
-                    <div>
-                        <input type="text" placeholder="New adress" type="text"
-                            class="form-control px-3 py-2 mt-2 animate__animated animate__fadeIn">
+            <h2 class="font-size-8 mb-4 mt-4 text-muted">Contact List</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <input placeholder="New contact" (keyup.enter)="add()" [(ngModel)]="newContact" type="text"
+                                class="form-control px-4 py-2">
+                            <p *ngIf="error != ''" class="text-danger text-end">
+                                {{error}}</p>
+                        </div>
+                    </div>
+                    <div class="form-check box-check position-relative py-3">
+                        <span class="text-muted"><small>Showing {{contacts.length}} contacts</small></span>
+                        <input (click)="setSelectedAll()" [(ngModel)]="selectedAll"
+                            class="form-check-input checkbox checkboxAll position-absolute" type="checkbox">
+                    </div>
+                    <div *ngFor="let actualContact of contacts" (click)="getContact(actualContact.id)"
+                        [ngClass]="{'border_active': actualContact.selected == true}"
+                        class="col-12 box position-relative mb-3 animate__animated animate__fadeIn">
+                        <h3>{{actualContact.name}}</h3>
+                        <span class="text-muted"><small>{{actualContact.creation_date}}</small></span>
+                        <div class="form-check position-absolute box-check">
+                            <input (click)="setSelected()" [(ngModel)]="actualContact.selected"
+                                class="form-check-input checkbox" type="checkbox">
+                        </div>
+                    </div>
+                    <button (click)="removeSelection()"
+                        class="btn btn-delete mt-3 float-end animate__animated animate__fadeIn"><i
+                            class="fas fa-trash"></i>
+                        Remove selected {{selected_contacts.length}} </button>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="contact!=null" class="aside col-12 sticky-top animate__animated animate__fadeIn">
+                        <div class="p-4 pb-2">
+                            <h4 class="aside-title">{{contact.name}} <i class="fas fa-pen color-primary"></i></h4>
+                            <button (click)="show_newPhone = !show_newPhone" class="btn btn-add mt-3"><i
+                                    class="fas fa-plus"></i> New phone</button>
+                            <button (click)="removeContact(contact.id)" class="btn btn-delete mt-3 mx-2"><i
+                                    class="fas fa-trash"></i> Remove contact</button>
+                            <div>
+                                <input *ngIf="show_newPhone" [(ngModel)]="phone_input" type="text"
+                                    (keyup.enter)="addPhone()" placeholder="New phone" type="text"
+                                    class="form-control px-3 py-2 mt-2 animate__animated animate__fadeIn">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="py-2">
+                            <p *ngFor="let actualPhone of phones" class="m-0 px-4 py-3 phones"><i
+                                    class="fas fa-phone color-primary"></i> {{actualPhone.number}}
+                                <i (click)="removePhone(actualPhone.id)" class="fas fa-trash float-end"></i>
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <hr>
-                <div class="py-2">
-                    <p class="m-0 px-4 py-3 phones"><i class="fas fa-map-marker-alt color-primary"></i> nombre actual
-                        <i class="fas fa-trash float-end"></i>
-                    </p>
-                </div>
             </div>
         </div>
     </div>
-</div>

@@ -7,6 +7,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { PhonesComponent } from './components/phones/phones.component';
 import { EditContactComponent } from './components/edit-contact/edit-contact.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { EditContactComponent } from './components/edit-contact/edit-contact.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
